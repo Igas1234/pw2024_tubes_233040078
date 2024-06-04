@@ -1,0 +1,24 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+
+.login{
+    padding: 20px;
+    border-radius: px;
+    box-shadow: 0 0 10px  black;
+}
+
+.form-floating{
+    padding-bottom: 10px;
+}
+
+.btn{
+    margin-left:19vh;
+}
+

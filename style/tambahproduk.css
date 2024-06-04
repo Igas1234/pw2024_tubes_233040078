@@ -1,0 +1,20 @@
+*{
+    list-style: none;
+}
+h1{
+    display: flex;
+    justify-content: center;
+}
+.container1{
+    background-color: antiquewhite;
+    border: solid black;
+    
+}
+.row1 input{
+    width: 500px;
+}
+
+.row1 label{
+    display: flex;
+    justify-content: center;
+}
