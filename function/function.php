@@ -157,7 +157,7 @@ function hapusproduk($ip)
 
 function cari($keyword)
 {
-    $query = "SELECT * FROM produk WHERE 
+    $query = "SELECT * FROM produk JOIN kategori ON produk.id_kategori = kategori.id_kategori WHERE 
     nama_produk LIKE '%$keyword%'";
     return query($query);
 }

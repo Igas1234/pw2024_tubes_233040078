@@ -5,29 +5,41 @@ session_start();
 //     exit;
 //}
 
-require './function/function.php';
 
-if (isset($_POST["login"])) {
+
+require './function/function.php'; // Sertakan file fungsi yang diperlukan
+
+if (isset($_POST["login"])) { // Periksa apakah form login telah dikirim
     $username = $_POST["username"];
     $password = $_POST["password"];
 
     $result =  mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username'");
 
-    if (mysqli_num_rows($result) === 1) {
+    if (mysqli_num_rows($result) === 1) { // Jika ada pengguna dengan username yang cocok
 
         //cek password
-        $row = mysqli_fetch_assoc($result);
-        if (password_verify($password, $row["password"])) {
-            //set session
-            $_SESSION['login'] = true;
+        $row = mysqli_fetch_assoc($result); // Ambil data pengguna dari database
+        if (password_verify($password, $row["password"])) { // Jika password cocok dengan hash yang disimpan di database
 
-            header("location: admin/produk.php");
-            exit;
+            //set session
+            $_SESSION['login'] = true; // Tetapkan session login ke true
+
+            // Periksa peran pengguna untuk menentukan halaman tujuan setelah login
+            if ($row['role'] === 'admin') { // Jika pengguna adalah admin
+                header("location: admin/produk.php"); // Alihkan ke halaman admin
+            } else { // Jika pengguna adalah pengguna biasa
+                header("location: index.php"); // Alihkan ke halaman pengguna biasa
+            }
+            exit; // Keluar dari skrip setelah mengalihkan pengguna
         }
     }
 
-    $error = true;
+    $error = true; // Jika username atau password tidak cocok, set error ke true
 }
+
+
+
+
 
 ?>
 <!doctype html>
