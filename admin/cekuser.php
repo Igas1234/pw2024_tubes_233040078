@@ -5,6 +5,12 @@ if (!isset($_SESSION['login']) || $_SESSION["login"] !== true) {
     header("Location: ../login.php");
     exit;
 }
+
+if (empty($_SESSION['role'])) {
+    header("Location: ../user/index.php");
+    exit;
+}
+
 include '../function/function.php';
 // query untuk mengambil data dari tabel
 $query = "SELECT * FROM user";

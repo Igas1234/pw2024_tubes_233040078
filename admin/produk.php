@@ -7,6 +7,17 @@ if (!isset($_SESSION['login']) || $_SESSION["login"] !== true) {
     exit;
 }
 
+// Jika role kosong maka alihkan ke halaman user karena role user di dalam database nya kosong.
+if (empty($_SESSION['role'])) {
+    header("Location: ../user/index.php");
+    exit;
+}
+
+if (empty($_SESSION['role'])) {
+    header("Location: ../user/homeuser.php");
+    exit;
+}
+
 include '../function/function.php';  // Sertakan file fungsi
 
 // Ambil kategori dari parameter GET, jika tersedia
@@ -98,7 +109,7 @@ $categories = query("SELECT * FROM kategori");
                 <h1 class="d-flex justify-content-center mb-3 text-warning">Daftar Menu</h1>
                 <?php foreach ($produk as $row) : ?>
                     <div class="card mb-5 bg-dark <?= strtolower($row['nama_kategori']); ?>" style="width: 18rem;">
-                        <img src="img/<?= $row["img"]; ?>" width="50" class="card-img-top mt-2" alt="foto produk">
+                        <img src="img/<?= $row["img"]; ?>" width="50" class="card-img-top mt-2 w-100" alt="foto produk">
                         <div class="card-body">
                             <h4 class="text-warning"><?= $row["nama_kategori"] ?></h4>
                             <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>

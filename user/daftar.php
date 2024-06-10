@@ -7,7 +7,7 @@ if (!isset($_SESSION['login']) || $_SESSION["login"] !== true) {
     exit;
 }
 
-include './function/function.php';  // Sertakan file fungsi
+include '../function/function.php';  // Sertakan file fungsi
 
 // Ambil kategori dari parameter GET, jika tersedia
 $category = $_GET["category"] ?? 'all';
@@ -42,64 +42,39 @@ $categories = query("SELECT * FROM kategori");
         .minuman-categories {
             background-color: black;
             border-radius: 10px 10px 10px 10px;
-
         }
 
         .makanan-categories {
             background-color: black;
             border-radius: 10px 10px 10px 10px;
-
         }
 
         .custom-icon {
             font-size: 50px;
             /* Ubah ukuran ikon sesuai kebutuhan */
         }
-    </style>
 
+
+
+        .svg {
+            position: absolute;
+            z-index: -9999999;
+        }
+
+        @media only screen and (max-width:600px) {
+            .menu {
+                top: 130px;
+                left: 50px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-dark ">
-        <div class="container-fluid">
-            <img class="mx-5" src="./img/Fabregas.jpg" width="100px" alt="logo">
-            <a class="navbar-brand  text-warning" href="index.php">p</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active  text-warning" aria-current="page" href="#">#</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  text-warning" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  text-warning" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            menu
-                        </a>
-                        <ul class="dropdown-menu">
+    <?php require '../user/navbaruser.html'; ?>
 
-                            <li><a class="dropdown-item" href="logout.php">logout</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-                <form class="d-flex" role="search" method="post">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword" id="keyword">
-                    <button class="btn btn-outline-success text-bg-warning" type="submit" name="cari" id="tombol-cari">Search</button>
-                </form>
-
-            </div>
-        </div>
-    </nav>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="svg">
         <path fill="bg-dark" fill-opacity="1" d="M0,160L40,186.7C80,213,160,267,240,245.3C320,224,400,128,480,85.3C560,43,640,53,720,64C800,75,880,85,960,106.7C1040,128,1120,160,1200,165.3C1280,171,1360,149,1400,138.7L1440,128L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
     </svg>
 
@@ -109,7 +84,7 @@ $categories = query("SELECT * FROM kategori");
             <div class="categories d-flex justify-content-center mb-3">
                 <a href="?category=all" class="btn btn-dark m-2">Semua</a>
             </div>
-            <div class="d-flex justify-content-center mb-3">
+            <div class="d-flex justify-content-center mb-3 menu">
 
                 <div class="makanan-categories me-3">
                     <i class="bi bi-cookie text-light custom-icon m-1"></i>
@@ -130,13 +105,19 @@ $categories = query("SELECT * FROM kategori");
                 </div>
             </div>
 
-
             <!-- Tampilkan daftar produk -->
             <div class="row d-flex justify-content-evenly" data-aos="flip-left">
                 <h1 class="d-flex justify-content-center mb-3 text-warning">Daftar Menu</h1>
-                <?php foreach ($produk as $row) : ?>
+                <?php foreach ($produk as $row) :
+                    $imagePath = "../admin/img/" . $row["img"];
+                ?>
                     <div class="card mb-5 bg-dark <?= strtolower($row['nama_kategori']); ?>" style="width: 18rem;">
-                        <img src="img/<?= $row["img"]; ?>" width="50" class="card-img-top mt-2" alt="foto produk">
+                        <?php if (file_exists($imagePath)) : ?>
+                            <img src="<?= $imagePath ?>" width="50" class="card-img-top mt-2" alt="foto produk">
+                        <?php else : ?>
+                            <img src="https://via.placeholder.com/150" width="50" class="card-img-top mt-2" alt="Foto tidak ditemukan">
+                            <p class="text-warning text-center">Foto tidak ditemukan</p>
+                        <?php endif; ?>
                         <div class="card-body">
                             <h4 class="text-warning"><?= $row["nama_kategori"] ?></h4>
                             <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
@@ -157,13 +138,32 @@ $categories = query("SELECT * FROM kategori");
         </div>
     </div>
 
-    <div class="container1 bg-dark">
-        <h4 class="text-light">Design Fabregas</h4>
-        <div class="row1">
-            <i class="bi bi-cup-hot text-light "></i>
-            <i class="bi bi-instagram text-light"></i>
+
+    <footer class="bg-body-tertiary text-center bg-dark mt-5">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4 ">
+                <!-- Facebook -->
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #f61c5d;" href="#!" role="button"><i class="bi bi-instagram"></i></a>
+
+                <!-- Twitter -->
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="bi bi-facebook"></i></a>
+
+                <!-- Google -->
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #1ace83;" href="#!" role="button"><i class="bi bi-whatsapp"></i></a>
+            </section>
+            <!-- Section: Social media -->
         </div>
-    </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3 text-light" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2024 Copyright:
+            <a class="text-light text-decoration-none" href="https://mdbootstrap.com/">Muhammad Fabregas garda samudra</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

@@ -6,6 +6,11 @@ if (!isset($_SESSION['login']) || $_SESSION["login"] !== true) {
     exit;
 }
 
+if (empty($_SESSION['role'])) {
+    header("Location: ../user/index.php");
+    exit;
+}
+
 include '../function/function.php';
 $kategori = query("SELECT nama_kategori FROM kategori");
 
@@ -50,7 +55,6 @@ if (isset($_POST["submit"])) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,60 +62,62 @@ if (isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ubah Produk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../style/tambahproduk.css">
 </head>
-<style>
-    * {
-        list-style: none;
-
-    }
-
-    .form-control {
-        width: 10000px;
-    }
-</style>
 
 <body>
     <?php include '../layout/navbar.html' ?>
 
-    <h1>Ubah Makanan</h1>
-    <div class="container1 d-flex justify-content-center">
-        <div class="row1">
-            <form action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?= $produk["id_produk"] ?>">
-                <input type="hidden" name="gambarlama" value="<?= $produk["img"] ?>">
-                <ul>
-                    <li>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="kategori">
-                            <?php foreach ($kategori as $ktg) : ?>
-                                <option value="<?= $ktg["nama_kategori"] ?>"><?= $ktg["nama_kategori"] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </li>
-                    <li>
-                        <label for="floatingInput">Masukan Nama</label>
-                        <input type="text" class="form-control w-100" id="floatingInput" name="nama" value="<?= $produk["nama_produk"]; ?>">
-                    </li>
-                    <li>
-                        <label for="floatingInput">Harga</label>
-                        <input type="text" class="form-control w-100" id="floatingInput" name="harga" value="<?= $produk["harga_produk"]; ?>">
-                    </li>
-                    <li>
-                        <label for="floatingInput">Deskripsi</label>
-                        <input type="text" class="form-control w-100" id="floatingInput" name="deskripsi" value="<?= $produk["deskripsi"]; ?>">
-                    </li>
-                    <li>
-                        <label class="label" for="img">Gambar</label>
-                        <img src="img/<?= $produk["img"]; ?>" alt="">
-                        <input class="input " type="file" name="img" id="img">
-                    </li>
-                    <li>
-                        <button type="submit" name="submit">Ubah</button>
-                    </li>
-                </ul>
-            </form>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Ubah Makanan</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?= $produk['id_produk'] ?>">
+                    <input type="hidden" name="gambarlama" value="<?= $produk['img'] ?>">
+
+                    <div class="mb-3">
+                        <label for="kategori" class="form-label">Kategori</label>
+                        <li>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="kategori">
+                                <?php foreach ($kategori as $ktg) : ?>
+                                    <option value="<?= $ktg["nama_kategori"] ?>"><?= $ktg["nama_kategori"] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </li>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Masukan Nama</label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $produk['nama_produk']; ?>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga</label>
+                        <input type="text" class="form-control" id="harga" name="harga" value="<?= $produk['harga_produk']; ?>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"><?= $produk['deskripsi']; ?></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="img" class="form-label">Gambar</label>
+                        <div class="mb-2">
+                            <img src="img/<?= $produk['img']; ?>" alt="Gambar Produk" class="img-thumbnail" width="150">
+                        </div>
+                        <input class="form-control" type="file" id="img" name="img">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" name="submit">Ubah</button>
+                </form>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

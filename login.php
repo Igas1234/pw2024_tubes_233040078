@@ -23,12 +23,13 @@ if (isset($_POST["login"])) { // Periksa apakah form login telah dikirim
 
             //set session
             $_SESSION['login'] = true; // Tetapkan session login ke true
+            $_SESSION['role'] = $row['role'];
 
             // Periksa peran pengguna untuk menentukan halaman tujuan setelah login
             if ($row['role'] === 'admin') { // Jika pengguna adalah admin
                 header("location: admin/produk.php"); // Alihkan ke halaman admin
             } else { // Jika pengguna adalah pengguna biasa
-                header("location: index.php"); // Alihkan ke halaman pengguna biasa
+                header("location: user/index.php"); // Alihkan ke halaman pengguna biasa
             }
             exit; // Keluar dari skrip setelah mengalihkan pengguna
         }
@@ -57,7 +58,7 @@ if (isset($_POST["login"])) { // Periksa apakah form login telah dikirim
     <div class="container">
         <div class="row">
             <form action="" method="post">
-                <h1>Login </h1>
+                <h1 class="d-flex justify-content-center">Login </h1>
                 <?php if (isset($error)) : ?>
                     <p>username/password salah</p>
 
@@ -70,11 +71,12 @@ if (isset($_POST["login"])) { // Periksa apakah form login telah dikirim
                     <input type="password" class="form-control " id="floatingPassword" placeholder="Password" name="password">
                     <label for="floatingPassword">Password</label>
                 </div>
-                <button type="submit" class="btn btn-primary" name="login">Login</button>
+                <div class="login d-flex ">
+                    <button type="submit" class="btn btn-primary " name="login">Login</button>
+                </div>
             </form>
-            <div class="register">belum punya akun->><a href="register.php">register</a> sekarang</div>
+            <div class="register d-flex justify-content-center">belum punya akun->><a href="register.php">register </a> sekarang</div>
         </div>
-        <div class="gambar"><img src="img/Fabregas.jpg" alt=""></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

@@ -168,6 +168,7 @@ function registrasi($data)
     $username =  strtolower(stripslashes($data["username"]));
     $password = mysqli_real_escape_string($koneksi, $data["password"]);
     $password2 = mysqli_real_escape_string($koneksi, $data["password2"]);
+    $role = '';
 
     // cek username sudah ada apa belum
     $result = mysqli_query($koneksi, "SELECT username FROM user WHERE username ='$username'");
@@ -190,7 +191,7 @@ function registrasi($data)
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     //tambah kan user baru ke database
-    $query = "INSERT INTO user (username, password) VALUES ('$username', '$password')";
+    $query = "INSERT INTO user (username, password, role) VALUES ('$username', '$password', '$role')";
     mysqli_query($koneksi, $query);
 
     if (mysqli_affected_rows($koneksi) > 0) {

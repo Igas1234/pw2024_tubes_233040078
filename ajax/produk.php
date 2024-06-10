@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../function/function.php';
 $keyword = $_GET["keyword"];
 
@@ -26,8 +27,17 @@ $produk = query($query);
                     <p><i class="bi bi-star-fill text-warning me-1"></i></p>
                     <i class="bi bi-emoji-laughing text-warning"></i>
                 </div>
-                <a href="hapusproduk.php?id=<?= $row["id_produk"]; ?>" onclick="return confirm('apakah yakin menghapus data');" class="badge text-bg-danger text-decoration-none mx-5">Hapus</a>
-                <a href="ubahproduk.php?id=<?= $row["id_produk"] ?>" class="badge text-bg-warning text-decoration-none">Ubah</a>
+                <?php
+                if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") {
+                    // Role is admin
+                    echo '<a href="ubahproduk.php?id=' . $row["id_produk"] . '" class="badge text-bg-warning text-decoration-none">Ubah</a>';
+                    echo '<a href="hapusproduk.php?id=' . $row["id_produk"] . '" onclick="return confirm(\'apakah yakin menghapus data\');" class="badge text-bg-danger text-decoration-none mx-5">Hapus</a>';
+                } else {
+                    // Role is not set or not admin
+                    echo '<a href="#" class="btn bg-success">Beli</a>';
+                }
+                ?>
+
             </div>
         </div>
 
