@@ -65,6 +65,26 @@ $categories = query("SELECT * FROM kategori");
             font-size: 50px;
             /* Ubah ukuran ikon sesuai kebutuhan */
         }
+
+
+        .footer {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 10vh;
+            justify-content: center;
+            gap: 10px;
+            z-index: 9;
+            width: 100%;
+            top: 1000px;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+
+        }
     </style>
 
 </head>
@@ -108,13 +128,12 @@ $categories = query("SELECT * FROM kategori");
             <div class="row d-flex justify-content-evenly" data-aos="flip-left">
                 <h1 class="d-flex justify-content-center mb-3 text-warning">Daftar Menu</h1>
                 <?php foreach ($produk as $row) : ?>
-                    <div class="card mb-5 bg-dark <?= strtolower($row['nama_kategori']); ?>" style="width: 18rem;">
+                    <div class="card mb-5 bg-dark  <?= strtolower($row['nama_kategori']); ?>" style="width: 18rem;">
                         <img src="img/<?= $row["img"]; ?>" width="50" class="card-img-top mt-2 w-100" alt="foto produk">
                         <div class="card-body">
                             <h4 class="text-warning"><?= $row["nama_kategori"] ?></h4>
                             <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
                             <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000.000</p>
-                            <p class="card-text text-warning"><?= $row["deskripsi"]; ?></p>
                             <div class="d-flex flex-row">
                                 <p><i class="bi bi-star-fill text-warning"></i></p>
                                 <p><i class="bi bi-star-fill text-warning"></i></p>
@@ -131,7 +150,9 @@ $categories = query("SELECT * FROM kategori");
         </div>
     </div>
 
-    <div class="container1 bg-dark">
+
+
+    <div class="footer bg-dark">
         <h4 class="text-light">Design Fabregas</h4>
         <div class="row1">
             <i class="bi bi-cup-hot text-light "></i>

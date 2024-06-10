@@ -22,15 +22,6 @@ svg{
     width: 400px;
     height: 400px;
 }
-
-.container1{
-    display: flex;
-    align-items: center;
-    height: 10vh;  
-    justify-content: center;
-    gap: 10px;
-}
-
 .row1{
    
     bottom: 0;

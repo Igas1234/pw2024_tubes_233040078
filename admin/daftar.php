@@ -61,6 +61,16 @@ $categories = query("SELECT * FROM kategori");
             z-index: -9999999;
         }
 
+        .footer {
+            position: relative;
+
+            gap: 10px;
+            z-index: 9;
+            width: 100%;
+            top: 1000px;
+        }
+
+
         @media only screen and (max-width:600px) {
             .menu {
                 top: 130px;
@@ -122,7 +132,6 @@ $categories = query("SELECT * FROM kategori");
                             <h4 class="text-warning"><?= $row["nama_kategori"] ?></h4>
                             <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
                             <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000.000</p>
-                            <p class="card-text text-warning"><?= $row["deskripsi"]; ?></p>
                             <div class="d-flex flex-row">
                                 <p><i class="bi bi-star-fill text-warning"></i></p>
                                 <p><i class="bi bi-star-fill text-warning"></i></p>
@@ -131,6 +140,7 @@ $categories = query("SELECT * FROM kategori");
                                 <i class="bi bi-emoji-laughing text-warning"></i>
                             </div>
                             <a href="" class="btn bg-success">beli</a>
+                            <a href="detail.php?id=<?= $row['id_produk']; ?>" class="btn bg-success">Detail</a>
                         </div>
                     </div>
                 <?php endforeach ?>
@@ -139,7 +149,7 @@ $categories = query("SELECT * FROM kategori");
     </div>
 
 
-    <footer class="bg-body-tertiary text-center bg-dark mt-5">
+    <footer class="footer bg-body-tertiary text-center bg-dark mt-5">
         <!-- Grid container -->
         <div class="container p-4 pb-0">
             <!-- Section: Social media -->

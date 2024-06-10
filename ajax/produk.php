@@ -19,7 +19,6 @@ $produk = query($query);
                 <h4 class=" text-warning"><?= $row["nama_kategori"] ?></h4>
                 <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
                 <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000.000</p>
-                <p class="card-text text-warning"><?= $row["deskripsi"]; ?></p>
                 <div class="d-flex flex-row">
                     <p><i class="bi bi-star-fill text-warning"></i></p>
                     <p><i class="bi bi-star-fill text-warning"></i></p>

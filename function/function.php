@@ -30,6 +30,7 @@ function tambahproduk($data)
     $harga_produk = $data["harga"];
     $deskripsi =  $data["deskripsi"];
 
+
     //upload gambar
     $gambar = upload();
     if (!$gambar) {
