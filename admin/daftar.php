@@ -118,17 +118,11 @@ $categories = query("SELECT * FROM kategori");
             <!-- Tampilkan daftar produk -->
             <div class="row d-flex justify-content-evenly" data-aos="flip-left">
                 <h1 class="d-flex justify-content-center mb-3 text-warning">Daftar Menu</h1>
-                <?php foreach ($produk as $row) :
-                    $imagePath = "../admin/img/" . $row["img"];
-                ?>
-                    <div class="card h-100 mb-5 bg-dark <?= strtolower($row['nama_kategori']); ?>" style="max-width: 350px; margin:auto; ">
-                        <?php if (file_exists($imagePath)) : ?>
-                            <img src="<?= $imagePath ?>" width="250" class="card-img-top mt-2 " alt="foto produk">
-                        <?php else : ?>
-                            <img src="https://via.placeholder.com/150" width="250" class=" card-img-top mt-2 h-100" alt="Foto tidak ditemukan ">
-                            <p class="text-warning text-center">Foto tidak ditemukan</p>
-                        <?php endif; ?>
+                <?php foreach ($produk as $row) : ?>
+                    <div class="card h-100 mb-5  bg-dark   <?= strtolower($row['nama_kategori']); ?>" style="max-width: 350px; margin:auto; ">
+                        <img class="img m-3" height="250" src="img/<?= $row["img"]; ?>" class="card-img-top mt-2 w-100" alt="foto produk">
                         <div class="card-body">
+
                             <h4 class="text-warning"><?= $row["nama_kategori"] ?></h4>
                             <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
                             <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000</p>

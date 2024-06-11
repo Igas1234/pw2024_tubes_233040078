@@ -13,8 +13,8 @@ $produk = query($query);
 
     <?php foreach ($produk as $row) : ?>
 
-        <div class="card h-100 mb-5 bg-dark   <?= strtolower($row['nama_kategori']); ?>" style="max-width: 350px; margin:auto; ">
-            <img class="img" height="250" src="img/<?= $row["img"]; ?>" width="250" class="card-img-top mt-2 w-100" alt="foto produk">
+        <div class="card h-100 mb-5 bg-dark mt-5  <?= strtolower($row['nama_kategori']); ?>" style="max-width: 350px; margin:auto; ">
+            <img class="img mt-3" height="250" src="img/<?= $row["img"]; ?>" class="card-img-top mt-2 w-100" alt="foto produk">
             <div class="card-body">
                 <h4 class=" text-warning"><?= $row["nama_kategori"] ?></h4>
                 <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
