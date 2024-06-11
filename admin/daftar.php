@@ -67,7 +67,7 @@ $categories = query("SELECT * FROM kategori");
             gap: 10px;
             z-index: 9;
             width: 100%;
-            top: 1000px;
+            top: 400px;
         }
 
 
@@ -121,17 +121,17 @@ $categories = query("SELECT * FROM kategori");
                 <?php foreach ($produk as $row) :
                     $imagePath = "../admin/img/" . $row["img"];
                 ?>
-                    <div class="card mb-5 bg-dark <?= strtolower($row['nama_kategori']); ?>" style="width: 18rem;">
+                    <div class="card h-100 mb-5 bg-dark <?= strtolower($row['nama_kategori']); ?>" style="max-width: 350px; margin:auto; ">
                         <?php if (file_exists($imagePath)) : ?>
-                            <img src="<?= $imagePath ?>" width="50" class="card-img-top mt-2" alt="foto produk">
+                            <img src="<?= $imagePath ?>" width="250" class="card-img-top mt-2 " alt="foto produk">
                         <?php else : ?>
-                            <img src="https://via.placeholder.com/150" width="50" class="card-img-top mt-2" alt="Foto tidak ditemukan">
+                            <img src="https://via.placeholder.com/150" width="250" class=" card-img-top mt-2 h-100" alt="Foto tidak ditemukan ">
                             <p class="text-warning text-center">Foto tidak ditemukan</p>
                         <?php endif; ?>
                         <div class="card-body">
                             <h4 class="text-warning"><?= $row["nama_kategori"] ?></h4>
                             <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
-                            <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000.000</p>
+                            <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000</p>
                             <div class="d-flex flex-row">
                                 <p><i class="bi bi-star-fill text-warning"></i></p>
                                 <p><i class="bi bi-star-fill text-warning"></i></p>

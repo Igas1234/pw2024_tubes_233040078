@@ -76,7 +76,7 @@ $categories = query("SELECT * FROM kategori");
             gap: 10px;
             z-index: 9;
             width: 100%;
-            top: 1000px;
+            top: 400px;
         }
 
         .row1 {
@@ -84,6 +84,11 @@ $categories = query("SELECT * FROM kategori");
             justify-content: center;
             gap: 10px;
 
+        }
+
+        .img {
+            margin-top: 10px;
+            width: auto;
         }
     </style>
 
@@ -125,15 +130,16 @@ $categories = query("SELECT * FROM kategori");
 
 
             <!-- Tampilkan daftar produk -->
-            <div class="row d-flex justify-content-evenly" data-aos="flip-left">
+            <div class="row d-flex justify-content-evenly mt-4" data-aos="flip-left">
                 <h1 class="d-flex justify-content-center mb-3 text-warning">Daftar Menu</h1>
                 <?php foreach ($produk as $row) : ?>
-                    <div class="card mb-5 bg-dark  <?= strtolower($row['nama_kategori']); ?>" style="width: 18rem;">
-                        <img src="img/<?= $row["img"]; ?>" width="50" class="card-img-top mt-2 w-100" alt="foto produk">
+
+                    <div class="card h-100 mb-5 bg-dark   <?= strtolower($row['nama_kategori']); ?>" style="max-width: 350px; margin:auto; ">
+                        <img class="img" height="250" src="img/<?= $row["img"]; ?>" width="50" class="card-img-top mt-2 w-100" alt="foto produk">
                         <div class="card-body">
                             <h4 class="text-warning"><?= $row["nama_kategori"] ?></h4>
                             <h5 class="card-title text-warning"><?= $row["nama_produk"]; ?></h5>
-                            <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000.000</p>
+                            <p class="text-warning">Rp <?= $row["harga_produk"]; ?>.000</p>
                             <div class="d-flex flex-row">
                                 <p><i class="bi bi-star-fill text-warning"></i></p>
                                 <p><i class="bi bi-star-fill text-warning"></i></p>
@@ -141,10 +147,13 @@ $categories = query("SELECT * FROM kategori");
                                 <p><i class="bi bi-star-fill text-warning me-1"></i></p>
                                 <i class="bi bi-emoji-laughing text-warning"></i>
                             </div>
-                            <a href="hapusproduk.php?id=<?= $row["id_produk"]; ?>" onclick="return confirm('Apakah yakin menghapus data?');" class="badge text-bg-danger text-decoration-none mx-5">Hapus</a>
-                            <a href="ubahproduk.php?id=<?= $row["id_produk"] ?>" class="badge text-bg-warning text-decoration-none">Ubah</a>
+                            <div class="d-flex col-9 justify-content-center">
+                                <a href="hapusproduk.php?id=<?= $row["id_produk"]; ?>" onclick="return confirm('Apakah yakin menghapus data?');" class="badge text-bg-danger text-decoration-none mx-5">Hapus</a>
+                                <a href="ubahproduk.php?id=<?= $row["id_produk"] ?>" class="badge text-bg-warning text-decoration-none">Ubah</a>
+                            </div>
                         </div>
                     </div>
+
                 <?php endforeach ?>
             </div>
         </div>
